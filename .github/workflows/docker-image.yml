@@ -25,12 +25,21 @@ jobs:
         find src
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+        # 환경 변수 설정
+    - name: Set environment variables
+      run: |
+        echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
+        echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> $GITHUB_ENV
+        echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> $GITHUB_ENV
+
+    # Debug 단계 추가
+    - name: Debug Environment Variables
+      run: |
+        echo "DATABASE_URL=${DATABASE_URL}"
+        echo "DATABASE_USERNAME=${DATABASE_USERNAME}"
+        echo "DATABASE_PASSWORD=${DATABASE_PASSWORD}"
 
     - name: Build with Gradle
-      env:
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}       
-        DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }} 
-        DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }} 
       run: ./gradlew clean build -x test
 
     - name: Configure AWS credentials
