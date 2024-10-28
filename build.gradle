@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.4'
@@ -22,7 +24,15 @@ configurations {
 jar {
     enabled = false
 }
-
+processResources {
+    filesMatching('application.yml') {
+        filter(ReplaceTokens, tokens: [
+                DATABASE_URL: System.getenv('DATABASE_URL') ?: '',
+                DATABASE_USERNAME: System.getenv('DATABASE_USERNAME') ?: '',
+                DATABASE_PASSWORD: System.getenv('DATABASE_PASSWORD') ?: ''
+        ])
+    }
+}
 repositories {
     mavenCentral()
 }
