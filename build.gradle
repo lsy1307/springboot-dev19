@@ -25,6 +25,11 @@ jar {
     enabled = false
 }
 processResources {
+    doFirst {
+        println("DATABASE_URL: ${System.getenv('DATABASE_URL')}")
+        println("DATABASE_USERNAME: ${System.getenv('DATABASE_USERNAME')}")
+        println("DATABASE_PASSWORD: ${System.getenv('DATABASE_PASSWORD')}")
+    }
     filesMatching('application-local.yml') {
         filter(ReplaceTokens, tokens: [
                 DATABASE_URL: System.getenv('DATABASE_URL') ?: '',
