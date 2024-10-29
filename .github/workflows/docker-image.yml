@@ -28,15 +28,11 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Set environment values
-      run: |
-        touch .env  # .env 파일 생성
-        echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env || echo "Failed to set DATABASE_URL"
-        echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> .env || echo "Failed to set DATABASE_USERNAME"
-        echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> .env || echo "Failed to set DATABASE_PASSWORD"
-        ls  # 현재 디렉토리의 파일 목록
-
     - name: Build with Gradle
+      env:
+        DATABASE_URL: ${{secrets.DATABASE_URL}}
+        DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
+        DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
       run: ./gradlew clean build -x test
   
 
