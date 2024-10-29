@@ -29,12 +29,9 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      env:
-        DATABASE_URL: ${{secrets.DATABASE_URL}}
-        DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
-        DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
-      run: ./gradlew clean build -x test
-  
+      run: ./gradlew clean build -PDATABASE_URL=${{ secrets.DATABASE_URL }} \
+                                 -PDATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} \
+                                 -PDATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
