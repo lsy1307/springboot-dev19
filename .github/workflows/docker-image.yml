@@ -29,7 +29,9 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./gradlew clean build -PDATABASE_URL=${{ secrets.DATABASE_URL }} \
+      run: |
+        ./gradlew clean build \
+        -PDATABASE_URL=${{ secrets.DATABASE_URL }} \
         -PDATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} \
         -PDATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
 
