@@ -25,7 +25,7 @@ jar {
     enabled = false
 }
 processResources {
-    filesMatching('application-dev.yml') {
+    filesMatching('application-local.yml') {
         filter(ReplaceTokens, tokens: [
                 DATABASE_URL: System.getenv('DATABASE_URL') ?: '',
                 DATABASE_USERNAME: System.getenv('DATABASE_USERNAME') ?: '',
