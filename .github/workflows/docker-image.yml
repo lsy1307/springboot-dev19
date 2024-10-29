@@ -30,6 +30,7 @@ jobs:
 
     - name: Set environment values
       run: |
+        touch .env
         echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
         echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> .env
         echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> .env
